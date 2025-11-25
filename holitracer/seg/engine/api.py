@@ -126,10 +126,10 @@ def seg_predict_api(
         # 检查结果是否已存在
         name, _ = os.path.splitext(os.path.basename(image_path))
         result_path = os.path.join(result_dir, f"{name}.png")
-        if os.path.exists(result_path):
-            print(f"跳过 {name}，结果已存在。")
-            pred = cv2.imread(result_path, cv2.IMREAD_GRAYSCALE)
-            return result_path, pred
+        # if os.path.exists(result_path):
+        #     print(f"跳过 {name}，结果已存在。")
+        #     pred = cv2.imread(result_path, cv2.IMREAD_GRAYSCALE)
+        #     return result_path, pred
 
         # 读取图像
         image0 = cv2.imread(image_path)

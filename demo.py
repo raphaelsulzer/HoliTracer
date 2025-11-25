@@ -14,7 +14,7 @@ from holitracer.vector.engine import vector_predict_api
 from holitracer.seg.models.unpernet import UPerNet
 from holitracer.vector.models.base import VLRAsModel
 
-def process_image(image_path, result_dir, seg_model, vector_model, downsample_factors):
+def process_image(image_path, result_dir, seg_model, vector_model, downsample_factors, num_gpus=1):
     
     if not os.path.exists(result_dir):
         os.makedirs(result_dir)
@@ -25,7 +25,7 @@ def process_image(image_path, result_dir, seg_model, vector_model, downsample_fa
                                     image_path=image_path,
                                     result_dir=result_dir,
                                     downsample_factors=downsample_factors,
-                                    num_gpus=4,
+                                    num_gpus=num_gpus,
                                 )
     if mask is None:
         return
@@ -71,7 +71,7 @@ if __name__ == "__main__":
         isContext=True,
         pretrain=False
     )
-    seg_model_path = "./data/models/whubuilding/seg/best_model.pth"
+    seg_model_path = "/data/rsulzer/holitracer/seg/best_model.pth"
     seg_model.load_state_dict(torch.load(seg_model_path))
     seg_model.cuda()
     seg_model.eval()
@@ -81,13 +81,13 @@ if __name__ == "__main__":
         backbone_path=seg_model_path,
         vlr_num=4
     )
-    vector_model_path = "./data/models/whubuilding/vector/best_model.pth"
+    vector_model_path = "/data/rsulzer/holitracer/vector/best_model.pth"
     vector_model.load_state_dict(torch.load(vector_model_path))
     vector_model.cuda()
     vector_model.eval()
 
 
-    image_path = "./data/datasets/WHU_building_dataset/test/img/150000_220000.jpg"
+    image_path = "/data/rsulzer/WHU_building_dataset/test/img/150000_220000.jpg"
     coco_result = process_image(image_path, "./data/results", seg_model, vector_model, [1, 3, 6])
     json.dump(coco_result, open("./data/results/150000_220000.json", "w"), indent=4)
     # visualize

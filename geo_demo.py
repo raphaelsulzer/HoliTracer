@@ -1,6 +1,5 @@
 import os
 import cv2
-import json
 import torch
 import numpy as np
 import geopandas as gpd
@@ -9,7 +8,6 @@ from skimage.measure import label as ski_label, regionprops
 from tqdm import tqdm
 from tools.trans.mask_to_coco import build_polygon
 from tools.trans.coco_to_shp import coco_to_shapefile
-from tools.visual.visual_whole import visualize_coco_segmentation
 
 from holitracer.seg.engine import seg_geo_predict_api
 from holitracer.vector.engine import vector_predict_api

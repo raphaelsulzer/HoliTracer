@@ -13,3 +13,5 @@ tqdm
 timm
 tensorboard
 rasterio
+geopandas
+gdal
